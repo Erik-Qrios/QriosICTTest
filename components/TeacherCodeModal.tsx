@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 
 interface TeacherCodeModalProps {
@@ -38,8 +39,8 @@ const TeacherCodeModal: React.FC<TeacherCodeModalProps> = ({ isOpen, onConfirm, 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" aria-modal="true" role="dialog">
       <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg text-center animate-fade-in-up">
-        <h2 className="text-2xl font-bold text-qrios-dark mb-4">Toegang voor Leerkracht</h2>
-        <p className="text-gray-600 mb-6">Deze actie is enkel voor de leerkracht. Voer de code in om door te gaan.</p>
+        <h2 className="text-2xl font-bold text-qrios-dark mb-4">Niveau overslaan</h2>
+        <p className="text-gray-600 mb-6">Deze actie is enkel voor leerkrachten met code.</p>
         
         <form onSubmit={handleFormSubmit} className="space-y-4">
           <input

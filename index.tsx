@@ -1045,8 +1045,8 @@ const TeacherCodeModal: React.FC<{ isOpen: boolean; onConfirm: (code: string) =>
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" aria-modal="true" role="dialog">
       <div className="bg-white w-full max-w-sm p-4 rounded-xl shadow-lg text-center animate-fade-in-up">
-        <h2 className="text-xl font-bold text-qrios-dark mb-2">Toegang voor Leerkracht</h2>
-        <p className="text-gray-600 mb-4 text-sm">Deze actie is enkel voor de leerkracht. Voer de code in om door te gaan.</p>
+        <h2 className="text-xl font-bold text-qrios-dark mb-2">Niveau overslaan</h2>
+        <p className="text-gray-600 mb-4 text-sm">Deze actie is enkel voor leerkrachten met code.</p>
         
         <form onSubmit={handleFormSubmit} className="space-y-3">
           <input
