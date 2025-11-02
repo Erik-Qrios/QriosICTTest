@@ -441,13 +441,13 @@ const QUESTION_BANK: Question[] = [
 const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => {
   return (
     <div className="text-center animate-fade-in-up flex flex-col items-center justify-center flex-grow">
-      <h1 className="text-3xl md:text-4xl font-bold text-qrios-dark mb-4">Welkom bij de IT-Vaardigheidstest</h1>
-      <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-qrios-dark mb-3">Welkom bij de IT-Vaardigheidstest</h1>
+      <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto mb-6">
         Deze test is ontworpen om uw huidige computervaardigheden in kaart te brengen. Dit helpt ons om u de best mogelijke begeleiding te geven. De resultaten vormen een beginsituatie, zodat we later uw vooruitgang kunnen meten.
       </p>
       <button 
         onClick={onStart} 
-        className="bg-qrios-primary hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full text-base shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-qrios-secondary"
+        className="bg-qrios-primary hover:bg-opacity-90 text-white font-bold py-2 px-6 rounded-full text-sm shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-qrios-secondary"
       >
         Start de test
       </button>
@@ -472,49 +472,49 @@ const InfoScreen: React.FC<{ onSubmit: (info: StudentInfo) => void }> = ({ onSub
   const isFormValid = info.campus !== '' && info.firstName.trim() !== '' && info.lastName.trim() !== '';
 
   return (
-    <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
-      <h2 className="text-2xl font-bold text-center text-qrios-dark mb-4">Gegevens Cursist</h2>
-      <p className="text-center text-gray-600 mb-6">Vul alstublieft uw gegevens in om te beginnen.</p>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="w-full max-w-md bg-white p-4 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
+      <h2 className="text-xl font-bold text-center text-qrios-dark mb-2">Gegevens Cursist</h2>
+      <p className="text-center text-gray-600 mb-4 text-sm">Vul alstublieft uw gegevens in om te beginnen.</p>
+      <form onSubmit={handleSubmit} className="space-y-3">
         <div>
-          <label htmlFor="campus" className="block text-sm font-medium text-gray-700 mb-2">Campus</label>
+          <label htmlFor="campus" className="block text-xs font-medium text-gray-700 mb-1">Campus</label>
           <select 
             id="campus" 
             name="campus" 
             value={info.campus} 
             onChange={handleChange} 
-            className="w-full px-3 py-2 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow"
+            className="w-full px-3 py-1.5 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow text-sm"
           >
             <option value="" disabled>Kies een campus...</option>
             {Campuses.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
         <div>
-          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">Voornaam</label>
+          <label htmlFor="firstName" className="block text-xs font-medium text-gray-700 mb-1">Voornaam</label>
           <input 
             type="text" 
             id="firstName" 
             name="firstName" 
             value={info.firstName} 
             onChange={handleChange}
-            className="w-full px-3 py-2 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow" 
+            className="w-full px-3 py-1.5 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow text-sm" 
           />
         </div>
         <div>
-          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">Naam</label>
+          <label htmlFor="lastName" className="block text-xs font-medium text-gray-700 mb-1">Naam</label>
           <input 
             type="text" 
             id="lastName" 
             name="lastName" 
             value={info.lastName} 
             onChange={handleChange} 
-            className="w-full px-3 py-2 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow"
+            className="w-full px-3 py-1.5 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow text-sm"
           />
         </div>
         <button 
           type="submit" 
           disabled={!isFormValid} 
-          className="w-full bg-qrios-primary text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-all disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed transform hover:scale-105"
+          className="w-full bg-qrios-primary text-white font-bold py-2 px-4 rounded-lg text-sm shadow-md hover:bg-opacity-90 transition-all disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed transform hover:scale-105"
         >
           Start Bevraging
         </button>
@@ -551,13 +551,13 @@ const Timer: React.FC<{ duration: number; onTimeUp: () => void; }> = ({ duration
 
   return (
     <div className="w-full my-2">
-        <div className="flex justify-between items-center mb-1 text-sm font-medium text-gray-700">
+        <div className="flex justify-between items-center mb-1 text-xs font-medium text-gray-700">
             <span>Tijd over</span>
             <span className="font-mono">{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-4">
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
             <div 
-                className={`h-4 rounded-full transition-all duration-500 ease-linear ${getBarColor()}`}
+                className={`h-2.5 rounded-full transition-all duration-500 ease-linear ${getBarColor()}`}
                 style={{ width: `${progressPercentage}%` }}
             ></div>
         </div>
@@ -612,18 +612,18 @@ const QuizScreen: React.FC<{ questions: Question[]; level: number; onQuizEnd: (a
     const userAnswer = answers[q.id];
 
     return (
-      <div className="space-y-3">
+      <div className="space-y-2">
         {q.options?.map(option => (
-          <label key={option} className="flex items-center p-3 border-2 rounded-lg cursor-pointer hover:border-qrios-secondary transition-all has-[:checked]:bg-qrios-secondary has-[:checked]:bg-opacity-20 has-[:checked]:border-qrios-primary">
+          <label key={option} className="flex items-center p-2 border-2 rounded-lg cursor-pointer hover:border-qrios-secondary transition-all has-[:checked]:bg-qrios-secondary has-[:checked]:bg-opacity-20 has-[:checked]:border-qrios-primary">
             <input 
               type="radio" 
               name={q.id} 
               value={option}
               checked={userAnswer === option}
               onChange={() => handleAnswerChange(q.id, option)}
-              className="w-5 h-5 text-qrios-primary focus:ring-qrios-secondary"
+              className="w-4 h-4 text-qrios-primary focus:ring-qrios-secondary"
             />
-            <span className="ml-3 text-base text-qrios-dark">{option}</span>
+            <span className="ml-2 text-sm text-qrios-dark">{option}</span>
           </label>
         ))}
       </div>
@@ -633,28 +633,28 @@ const QuizScreen: React.FC<{ questions: Question[]; level: number; onQuizEnd: (a
   if (!currentQuestion) return <div>Laden...</div>;
 
   return (
-    <div className="w-full max-w-2xl bg-white p-4 sm:p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up flex flex-col">
+    <div className="w-full max-w-2xl bg-white p-4 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up flex flex-col">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl sm:text-2xl font-bold text-qrios-dark">Niveau {level}</h2>
-        <span className="text-gray-500 font-medium bg-gray-100 px-3 py-1 rounded-full">Vraag {currentQuestionIndex + 1} / {questions.length}</span>
+        <h2 className="text-lg sm:text-xl font-bold text-qrios-dark">Niveau {level}</h2>
+        <span className="text-gray-500 font-medium bg-gray-100 px-3 py-1 rounded-full text-sm">Vraag {currentQuestionIndex + 1} / {questions.length}</span>
       </div>
       
       <Timer duration={QUIZ_DURATION_SECONDS} onTimeUp={handleTimeUp} />
 
-      <div className="bg-qrios-light p-4 rounded-lg my-2 flex-grow min-h-[220px] flex flex-col justify-center border">
+      <div className="bg-qrios-light p-3 rounded-lg my-1 flex-grow min-h-[180px] flex flex-col justify-center border">
         <p 
-          className="text-lg sm:text-xl text-qrios-dark mb-4 font-medium"
+          className="text-base sm:text-lg text-qrios-dark mb-3 font-medium"
           dangerouslySetInnerHTML={{ __html: currentQuestion.questionText as string }}
         />
         {renderQuestion(currentQuestion)}
       </div>
 
-      <div className="flex justify-center items-center mt-4 gap-4">
-        <button onClick={handlePrev} disabled={currentQuestionIndex === 0} className="px-4 py-2 text-sm bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Vorige</button>
+      <div className="flex justify-center items-center mt-2 gap-2">
+        <button onClick={handlePrev} disabled={currentQuestionIndex === 0} className="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Vorige</button>
         {currentQuestionIndex < questions.length - 1 ? (
-          <button onClick={handleNext} className="px-6 py-2 bg-qrios-primary text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors shadow-md transform hover:scale-105">Volgende</button>
+          <button onClick={handleNext} className="px-4 py-2 text-sm bg-qrios-primary text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors shadow-md transform hover:scale-105">Volgende</button>
         ) : (
-          <button onClick={handleSubmit} className="px-6 py-2 bg-qrios-success text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors shadow-md transform hover:scale-105">Bevraging Indienen</button>
+          <button onClick={handleSubmit} className="px-4 py-2 text-sm bg-qrios-success text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors shadow-md transform hover:scale-105">Bevraging Indienen</button>
         )}
       </div>
     </div>
@@ -662,20 +662,20 @@ const QuizScreen: React.FC<{ questions: Question[]; level: number; onQuizEnd: (a
 };
 
 const CorrectIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-qrios-success mr-3 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-qrios-success mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
     </svg>
 );
 
 const IncorrectIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-qrios-danger mr-3 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-qrios-danger mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
     </svg>
 );
 
 const Report: React.FC<{ attempt: Attempt; }> = ({ attempt }) => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {attempt.questions.map((q, index) => {
         const userAnswer = attempt.answers[q.id];
         const isCorrect = userAnswer === q.correctAnswer;
@@ -684,14 +684,14 @@ const Report: React.FC<{ attempt: Attempt; }> = ({ attempt }) => {
         const displayCorrectAnswer = String(q.correctAnswer);
 
         return (
-          <div key={q.id} className="border-b border-gray-200 pb-3 last:border-b-0">
+          <div key={q.id} className="border-b border-gray-200 pb-2 last:border-b-0">
             <p 
-              className="font-semibold text-qrios-dark mb-3"
+              className="font-semibold text-qrios-dark mb-2 text-sm"
               dangerouslySetInnerHTML={{ __html: `Vraag ${index + 1}: ${q.questionText}` }}
             />
             <div className="flex items-start">
               {isCorrect ? <CorrectIcon /> : <IncorrectIcon />}
-              <div className="flex-grow text-sm">
+              <div className="flex-grow text-xs">
                 <p>Jouw antwoord: <span className={`font-medium ${isCorrect ? 'text-qrios-success' : 'text-qrios-danger'}`}>{displayUserAnswer}</span></p>
                 {!isCorrect && <p>Correct antwoord: <span className="font-medium text-qrios-success">{displayCorrectAnswer}</span></p>}
               </div>
@@ -717,16 +717,16 @@ const ResultsScreen: React.FC<{ attempt: Attempt; history: Attempt[]; onNext: ()
   };
 
   const CheckIcon = () => (
-    <div className="w-16 h-16 rounded-full bg-qrios-success bg-opacity-10 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-qrios-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div className="w-12 h-12 rounded-full bg-qrios-success bg-opacity-10 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-qrios-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
     </div>
   );
 
   const XCircleIcon = () => (
-     <div className="w-16 h-16 rounded-full bg-qrios-danger bg-opacity-10 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-qrios-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+     <div className="w-12 h-12 rounded-full bg-qrios-danger bg-opacity-10 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-qrios-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
     </div>
@@ -734,17 +734,17 @@ const ResultsScreen: React.FC<{ attempt: Attempt; history: Attempt[]; onNext: ()
   
   if (showReport) {
     return (
-      <div className="w-full max-w-3xl bg-white p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in">
-        <h2 className="text-2xl font-bold text-qrios-dark mb-6">Antwoorden Niveau {level}</h2>
+      <div className="w-full max-w-3xl bg-white p-4 rounded-xl shadow-lg border border-gray-200 animate-fade-in">
+        <h2 className="text-xl font-bold text-qrios-dark mb-4">Antwoorden Niveau {level}</h2>
         {attemptsForThisLevel.map((att, index) => (
-          <div key={index} className="mb-8">
-            <h3 className="text-xl font-semibold text-gray-700 border-b-2 border-gray-200 pb-2 mb-4">Poging {att.attemptNumber}</h3>
+          <div key={index} className="mb-6">
+            <h3 className="text-lg font-semibold text-gray-700 border-b-2 border-gray-200 pb-2 mb-3">Poging {att.attemptNumber}</h3>
             <Report attempt={att} />
           </div>
         ))}
         <button 
           onClick={() => setShowReport(false)}
-          className="w-full mt-4 bg-qrios-primary text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-colors"
+          className="w-full mt-4 bg-qrios-primary text-white font-bold py-1.5 px-4 rounded-lg text-sm shadow-md hover:bg-opacity-90 transition-colors"
         >
           Terug naar Resultaten
         </button>
@@ -753,38 +753,38 @@ const ResultsScreen: React.FC<{ attempt: Attempt; history: Attempt[]; onNext: ()
   }
 
   return (
-    <div className="w-full max-w-md text-center bg-white p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
+    <div className="w-full max-w-md text-center bg-white p-4 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
         <div className="flex justify-center mb-4">
             {passed ? <CheckIcon/> : <XCircleIcon />}
         </div>
-      <h2 className="text-2xl font-bold mb-2">{passed ? 'Gefeliciteerd!' : 'Helaas...'}</h2>
+      <h2 className="text-xl font-bold mb-2">{passed ? 'Gefeliciteerd!' : 'Helaas...'}</h2>
       {timeUp && !passed ? (
-        <p className="text-gray-600 text-base mb-4">
+        <p className="text-gray-600 text-sm mb-4">
           Helaas, je hebt de {QUESTIONS_PER_QUIZ} vragen niet kunnen beantwoorden in 3 minuten. Je bent daarom niet geslaagd voor niveau {level}.
         </p>
       ) : (
-        <p className="text-gray-600 text-base mb-4">
+        <p className="text-gray-600 text-sm mb-4">
           {passed ? `Je bent geslaagd voor niveau ${level}!` : `Je bent niet geslaagd voor niveau ${level}.`}
         </p>
       )}
 
-      <div className="bg-qrios-light rounded-lg p-4 my-4 border">
-        <p className="text-lg font-medium text-gray-700">Jouw score:</p>
-        <p className={`text-4xl font-bold my-1 ${passed ? 'text-qrios-success' : 'text-qrios-danger'}`}>{score}<span className="text-2xl text-gray-500">/{QUESTIONS_PER_QUIZ}</span></p>
+      <div className="bg-qrios-light rounded-lg p-3 my-2 border">
+        <p className="text-base font-medium text-gray-700">Jouw score:</p>
+        <p className={`text-3xl font-bold my-1 ${passed ? 'text-qrios-success' : 'text-qrios-danger'}`}>{score}<span className="text-xl text-gray-500">/{QUESTIONS_PER_QUIZ}</span></p>
       </div>
-      {!passed && !timeUp && <p className="text-gray-600 text-sm mb-4">Je hebt een score van {PASSING_SCORE} of hoger nodig om te slagen.</p>}
-      {!passed && attemptNumber < 2 && <p className="text-qrios-success font-semibold text-md mb-4">Je krijgt een tweede poging!</p>}
+      {!passed && !timeUp && <p className="text-gray-600 text-xs mb-4">Je hebt een score van {PASSING_SCORE} of hoger nodig om te slagen.</p>}
+      {!passed && attemptNumber < 2 && <p className="text-qrios-success font-semibold text-sm mb-4">Je krijgt een tweede poging!</p>}
       
-      <div className="flex flex-col sm:flex-row gap-4 mt-6">
+      <div className="flex flex-col sm:flex-row gap-2 mt-4">
         <button 
           onClick={() => setShowReport(true)}
-          className="flex-1 bg-gray-200 text-qrios-dark font-bold py-2 px-5 rounded-lg text-base hover:bg-gray-300 transition-colors"
+          className="flex-1 bg-gray-200 text-qrios-dark font-bold py-2 px-4 rounded-lg text-sm hover:bg-gray-300 transition-colors"
         >
           Antwoorden
         </button>
         <button 
           onClick={onNext}
-          className="flex-1 bg-qrios-primary text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-colors"
+          className="flex-1 bg-qrios-primary text-white font-bold py-2 px-4 rounded-lg text-sm shadow-md hover:bg-opacity-90 transition-colors"
         >
           {getNextButtonText()}
         </button>
@@ -840,17 +840,17 @@ const EndScreen: React.FC<{ achievedLevel: number; history: Attempt[]; studentIn
   const seconds = totalDurationSeconds % 60;
   
   return (
-    <div className="w-full max-w-xl text-center bg-white p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
-      <h2 className="text-2xl font-bold text-qrios-dark mb-2">Test Afgerond!</h2>
-      <p className="text-base text-gray-600 mb-6">Bedankt voor uw deelname. Hieronder vindt u een overzicht van uw resultaten.</p>
+    <div className="w-full max-w-lg text-center bg-white p-4 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
+      <h2 className="text-xl font-bold text-qrios-dark mb-2">Test Afgerond!</h2>
+      <p className="text-sm text-gray-600 mb-4">Bedankt voor uw deelname. Hieronder vindt u een overzicht van uw resultaten.</p>
 
-      <div className="bg-qrios-light rounded-lg p-4 my-6 border-2 border-qrios-primary">
-        <p className="text-lg font-medium text-gray-700">Behaald niveau:</p>
-        <p className="text-5xl font-bold my-2 text-qrios-primary">{achievedLevel}</p>
-        <p className="text-sm text-gray-500">van de 3 niveaus</p>
+      <div className="bg-qrios-light rounded-lg p-3 my-4 border-2 border-qrios-primary">
+        <p className="text-base font-medium text-gray-700">Behaald niveau:</p>
+        <p className="text-4xl font-bold my-2 text-qrios-primary">{achievedLevel}</p>
+        <p className="text-xs text-gray-500">van de 3 niveaus</p>
       </div>
 
-      <div className="text-left text-gray-700 space-y-2 mb-6 p-4 bg-gray-50 rounded-lg border">
+      <div className="text-left text-gray-700 space-y-1 mb-4 p-3 bg-gray-50 rounded-lg border text-sm">
         <p><strong>Naam:</strong> {studentInfo.firstName} {studentInfo.lastName}</p>
         <p><strong>Campus:</strong> {studentInfo.campus}</p>
         <p><strong>Totale duur:</strong> {minutes} minuten en {seconds} seconden</p>
@@ -858,30 +858,30 @@ const EndScreen: React.FC<{ achievedLevel: number; history: Attempt[]; studentIn
       
       <button 
         onClick={handleDownload}
-        className="w-full bg-qrios-primary text-white font-bold py-3 px-6 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-all transform hover:scale-105"
+        className="w-full bg-qrios-primary text-white font-bold py-2 px-4 rounded-lg text-sm shadow-md hover:bg-opacity-90 transition-all transform hover:scale-105"
       >
         Download Rapport (PDF)
       </button>
 
-      <div ref={reportRef} className="absolute -left-[9999px] top-auto w-[800px] p-12 bg-white" style={{ display: 'none' }}>
-        <div className="flex items-center justify-center mb-8 pb-4 border-b">
-            <h1 className="text-3xl font-bold text-qrios-dark">Rapport IT-Vaardigheidstest</h1>
+      <div ref={reportRef} className="absolute -left-[9999px] top-auto w-[800px] p-8 bg-white" style={{ display: 'none' }}>
+        <div className="flex items-center justify-center mb-6 pb-4 border-b">
+            <h1 className="text-2xl font-bold text-qrios-dark">Rapport IT-Vaardigheidstest</h1>
         </div>
-        <h2 className="text-2xl font-semibold mb-6">Resultaten voor {studentInfo.firstName} {studentInfo.lastName}</h2>
+        <h2 className="text-xl font-semibold mb-4">Resultaten voor {studentInfo.firstName} {studentInfo.lastName}</h2>
         
-        <div className="text-left text-base space-y-2 mb-8 p-4 bg-gray-100 rounded-lg">
+        <div className="text-left text-sm space-y-1 mb-6 p-3 bg-gray-100 rounded-lg">
             <p><strong>Campus:</strong> {studentInfo.campus}</p>
             <p><strong>Testdatum:</strong> {testStartTime.toLocaleDateString('nl-BE')}</p>
             <p><strong>Totale duur:</strong> {minutes} minuten en {seconds} seconden</p>
-            <p className="font-bold text-lg pt-2">Eindresultaat: Niveau {achievedLevel} behaald</p>
+            <p className="font-bold text-base pt-2">Eindresultaat: Niveau {achievedLevel} behaald</p>
         </div>
 
         {history.map((attempt, index) => (
-          <div key={index} className="mb-8" style={{pageBreakBefore: 'always'}}>
-            <h3 className="text-2xl font-bold text-qrios-dark border-b-2 border-qrios-primary pb-2 mb-6">
+          <div key={index} className="mb-6" style={{pageBreakBefore: 'always'}}>
+            <h3 className="text-xl font-bold text-qrios-dark border-b-2 border-qrios-primary pb-2 mb-4">
               Details Niveau {attempt.level} - Poging {attempt.attemptNumber}
             </h3>
-            <div className="grid grid-cols-2 gap-4 text-left text-lg mb-6">
+            <div className="grid grid-cols-2 gap-2 text-left text-base mb-4">
               <p><strong>Score:</strong> {attempt.score}/{QUESTIONS_PER_QUIZ}</p>
               <p><strong>Resultaat:</strong> <span className={attempt.passed ? 'font-bold text-green-600' : 'font-bold text-red-600'}>{attempt.passed ? 'Geslaagd' : 'Niet geslaagd'}</span></p>
             </div>
@@ -895,10 +895,10 @@ const EndScreen: React.FC<{ achievedLevel: number; history: Attempt[]; studentIn
 
 const Header: React.FC = () => {
     return (
-        <header className="w-full bg-qrios-primary shadow-md p-3">
+        <header className="w-full bg-qrios-primary shadow-md p-2">
             <div className="max-w-5xl mx-auto flex items-center justify-center">
                 <div className="flex items-center gap-4">
-                    <h1 className="text-lg sm:text-xl font-semibold text-white">IT-Vaardigheidstest</h1>
+                    <h1 className="text-base sm:text-lg font-semibold text-white">IT-Vaardigheidstest</h1>
                 </div>
             </div>
         </header>
@@ -912,18 +912,18 @@ const ConfirmationModal: React.FC<{ isOpen: boolean; onConfirm: () => void; onCa
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" aria-modal="true" role="dialog">
-      <div className="bg-white w-full max-w-sm p-6 rounded-xl shadow-lg text-center animate-fade-in-up">
-        <p className="text-lg text-qrios-dark mb-6">{message}</p>
+      <div className="bg-white w-full max-w-sm p-4 rounded-xl shadow-lg text-center animate-fade-in-up">
+        <p className="text-base text-qrios-dark mb-4">{message}</p>
         <div className="flex justify-center gap-4">
           <button
             onClick={onConfirm}
-            className="flex-1 bg-qrios-danger text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-colors"
+            className="flex-1 bg-qrios-danger text-white font-bold py-2 px-4 rounded-lg text-sm shadow-md hover:bg-opacity-90 transition-colors"
           >
             Ja
           </button>
           <button
             onClick={onCancel}
-            className="flex-1 bg-gray-200 text-qrios-dark font-bold py-2 px-5 rounded-lg text-base hover:bg-gray-300 transition-colors"
+            className="flex-1 bg-gray-200 text-qrios-dark font-bold py-2 px-4 rounded-lg text-sm hover:bg-gray-300 transition-colors"
           >
             Annuleren
           </button>
@@ -963,11 +963,11 @@ const TeacherCodeModal: React.FC<{ isOpen: boolean; onConfirm: (code: string) =>
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" aria-modal="true" role="dialog">
-      <div className="bg-white w-full max-w-sm p-6 rounded-xl shadow-lg text-center animate-fade-in-up">
-        <h2 className="text-2xl font-bold text-qrios-dark mb-4">Toegang voor Leerkracht</h2>
-        <p className="text-gray-600 mb-6">Deze actie is enkel voor de leerkracht. Voer de code in om door te gaan.</p>
+      <div className="bg-white w-full max-w-sm p-4 rounded-xl shadow-lg text-center animate-fade-in-up">
+        <h2 className="text-xl font-bold text-qrios-dark mb-2">Toegang voor Leerkracht</h2>
+        <p className="text-gray-600 mb-4 text-sm">Deze actie is enkel voor de leerkracht. Voer de code in om door te gaan.</p>
         
-        <form onSubmit={handleFormSubmit} className="space-y-4">
+        <form onSubmit={handleFormSubmit} className="space-y-3">
           <input
             type="password"
             value={code}
@@ -975,23 +975,23 @@ const TeacherCodeModal: React.FC<{ isOpen: boolean; onConfirm: (code: string) =>
               setCode(e.target.value);
               if (error) setError('');
             }}
-            className={`w-full px-3 py-2 bg-white text-qrios-dark border ${error ? 'border-qrios-danger' : 'border-gray-300'} rounded-lg focus:ring-2 ${error ? 'focus:ring-qrios-danger' : 'focus:ring-qrios-secondary'} focus:border-transparent transition-shadow`}
+            className={`w-full px-3 py-1.5 bg-white text-qrios-dark border ${error ? 'border-qrios-danger' : 'border-gray-300'} rounded-lg focus:ring-2 ${error ? 'focus:ring-qrios-danger' : 'focus:ring-qrios-secondary'} focus:border-transparent transition-shadow text-sm`}
             placeholder="Voer code in..."
             autoFocus
           />
-          {error && <p className="text-qrios-danger text-sm text-left">{error}</p>}
+          {error && <p className="text-qrios-danger text-xs text-left">{error}</p>}
           
-          <div className="flex justify-center gap-4 pt-4">
+          <div className="flex justify-center gap-4 pt-2">
             <button
               type="submit"
-              className="flex-1 bg-qrios-primary text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-colors"
+              className="flex-1 bg-qrios-primary text-white font-bold py-2 px-4 rounded-lg text-sm shadow-md hover:bg-opacity-90 transition-colors"
             >
               OK
             </button>
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 bg-gray-200 text-qrios-dark font-bold py-2 px-5 rounded-lg text-base hover:bg-gray-300 transition-colors"
+              className="flex-1 bg-gray-200 text-qrios-dark font-bold py-2 px-4 rounded-lg text-sm hover:bg-gray-300 transition-colors"
             >
               Annuleren
             </button>
@@ -1013,7 +1013,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="w-full text-center text-white text-base p-3 mt-auto bg-qrios-primary">
+    <footer className="w-full text-center text-white text-sm p-2 mt-auto bg-qrios-primary">
       {time.toLocaleDateString('nl-BE')} - {time.toLocaleTimeString('nl-BE')}
     </footer>
   );
@@ -1197,24 +1197,24 @@ function App() {
     <div className="bg-qrios-light min-h-screen flex flex-col items-center text-qrios-dark font-sans">
        <Header />
        {gameState !== 'welcome' && (
-        <div className="w-full flex justify-center items-center gap-4 p-2 bg-qrios-light border-b border-gray-200">
+        <div className="w-full flex justify-center items-center gap-4 p-1 bg-qrios-light border-b border-gray-200">
           <button
             onClick={handleResetRequest}
-            className="bg-white border border-gray-300 text-qrios-dark hover:bg-gray-100 font-semibold py-2 px-4 rounded-lg text-sm transition-colors shadow-sm"
+            className="bg-white border border-gray-300 text-qrios-dark hover:bg-gray-100 font-semibold py-1.5 px-3 rounded-lg text-xs transition-colors shadow-sm"
           >
             Home
           </button>
           {gameState === 'quiz' && (
             <button
               onClick={handleSkipLevelRequest}
-              className="bg-qrios-secondary text-white hover:bg-opacity-90 font-semibold py-2 px-4 rounded-lg text-sm transition-colors shadow-sm"
+              className="bg-qrios-secondary text-white hover:bg-opacity-90 font-semibold py-1.5 px-3 rounded-lg text-xs transition-colors shadow-sm"
             >
               Niveau overslaan
             </button>
           )}
         </div>
        )}
-       <main className="w-full max-w-4xl mx-auto flex-grow flex flex-col items-center p-2 sm:p-4">
+       <main className="w-full max-w-4xl mx-auto flex-grow flex flex-col items-center p-2">
         {renderContent()}
        </main>
       <Footer />
