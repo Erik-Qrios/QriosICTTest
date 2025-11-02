@@ -442,9 +442,10 @@ const QUESTION_BANK: Question[] = [
 const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => {
   return (
     <div className="text-center animate-fade-in-up flex flex-col items-center justify-center flex-grow">
-      <h1 className="text-2xl md:text-3xl font-bold text-qrios-dark mb-3">Welkom bij de IT-Vaardigheidstest</h1>
+      <h1 className="text-2xl md:text-3xl font-bold text-qrios-dark mb-3">Welkom bij de ICT Vaardigheidstest</h1>
       <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto mb-6">
-        Deze test is ontworpen om uw huidige computervaardigheden in kaart te brengen. Dit helpt ons om u de best mogelijke begeleiding te geven. De resultaten vormen een beginsituatie, zodat we later uw vooruitgang kunnen meten.
+        Deze test is ontworpen om uw huidige computervaardigheden in kaart te brengen. Dit helpt ons om u de best mogelijke begeleiding te geven. 
+        De test bestaat uit 3 niveaus en op het einde krijgt u een rapport.
       </p>
       <button 
         onClick={onStart} 
