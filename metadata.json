@@ -1,0 +1,5 @@
+{
+  "name": "Qrios IT-Vaardigheidstest",
+  "description": "Een applicatie om de computervaardigheden van cursisten bij Qrios te testen en hun voortgang gedurende het schooljaar te volgen. De test bestaat uit drie niveaus met diverse vragen en genereert een eindrapport.",
+  "requestFramePermissions": []
+}
