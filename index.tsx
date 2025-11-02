@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import { jsPDF } from 'jspdf';
@@ -794,45 +795,152 @@ const ResultsScreen: React.FC<{ attempt: Attempt; history: Attempt[]; onNext: ()
 };
 
 const EndScreen: React.FC<{ achievedLevel: number; history: Attempt[]; studentInfo: StudentInfo; testStartTime: Date; testEndTime: Date; }> = ({ achievedLevel, history, studentInfo, testStartTime, testEndTime }) => {
-  const reportRef = useRef<HTMLDivElement>(null);
-
-  const handleDownload = async () => {
-    const reportElement = reportRef.current;
-    if (!reportElement) return;
-
-    const originalDisplay = reportElement.style.display;
-    reportElement.style.display = 'block';
-
-    const canvas = await html2canvas(reportElement, { scale: 2 });
     
-    reportElement.style.display = originalDisplay;
-    
-    const imgData = canvas.toDataURL('image/png');
-    
+  const handleDownload = () => {
     const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'px',
-      format: 'a4'
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
     });
 
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    
-    let heightLeft = pdfHeight;
-    let position = 0;
-    const pageHeight = pdf.internal.pageSize.getHeight();
+    const MARGIN = 20;
+    const PAGE_WIDTH = pdf.internal.pageSize.getWidth();
+    const PAGE_HEIGHT = pdf.internal.pageSize.getHeight();
+    const USABLE_WIDTH = PAGE_WIDTH - 2 * MARGIN;
+    let y = MARGIN;
 
-    pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
-    heightLeft -= pageHeight;
+    const stripHtml = (html: string) => {
+        try {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            return doc.body.textContent || "";
+        } catch (e) {
+            return html;
+        }
+    };
 
-    while (heightLeft > 0) {
-      position = heightLeft - pdfHeight;
-      pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
-      heightLeft -= pageHeight;
+    const checkPageBreak = (heightNeeded: number) => {
+        if (y + heightNeeded > PAGE_HEIGHT - MARGIN) {
+            pdf.addPage();
+            y = MARGIN;
+        }
+    };
+
+    // --- PAGE 1: SUMMARY ---
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(22);
+    pdf.text('Rapport ICT Vaardigheidstest', PAGE_WIDTH / 2, y, { align: 'center' });
+    y += 15;
+
+    // Student Info
+    pdf.setFontSize(11);
+    const totalDurationSeconds = Math.round((testEndTime.getTime() - testStartTime.getTime()) / 1000);
+    const minutes = Math.floor(totalDurationSeconds / 60);
+    const seconds = totalDurationSeconds % 60;
+
+    const infoData = [
+        { label: 'Cursist', value: `${studentInfo.firstName} ${studentInfo.lastName}` },
+        { label: 'Campus', value: studentInfo.campus },
+        { label: 'Test afgenomen op', value: testStartTime.toLocaleString('nl-BE') },
+        { label: 'Totale duur', value: `${minutes} minuten en ${seconds} seconden` }
+    ];
+
+    infoData.forEach(item => {
+        pdf.setFont('helvetica', 'bold');
+        pdf.text(item.label + ':', MARGIN, y);
+        pdf.setFont('helvetica', 'normal');
+        pdf.text(item.value, MARGIN + 40, y);
+        y += 6;
+    });
+    y += 10;
+
+    // Centered final result block
+    pdf.setFillColor(248, 249, 250); // A light gray background
+    pdf.roundedRect(MARGIN, y - 5, USABLE_WIDTH, 22, 3, 3, 'F');
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(12);
+    pdf.setTextColor(108, 117, 125); // A muted gray for the label
+    pdf.text('Eindresultaat', PAGE_WIDTH / 2, y + 4, { align: 'center' });
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(18);
+    pdf.setTextColor(67, 170, 139); // qrios-success green
+    pdf.text(`Niveau ${achievedLevel} behaald`, PAGE_WIDTH / 2, y + 13, { align: 'center' });
+    y += 25;
+    pdf.setTextColor(33, 37, 41); // Reset to default dark color
+
+
+    // --- ATTEMPTS DETAILS ---
+    history.forEach((attempt) => {
+        checkPageBreak(20);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(14);
+        pdf.text(`Details Niveau ${attempt.level} - Poging ${attempt.attemptNumber}`, MARGIN, y);
+        y += 7;
+        
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(11);
+        const resultText = attempt.passed ? 'Geslaagd' : 'Niet geslaagd';
+        const resultColor = attempt.passed ? '#43AA8B' : '#F94144';
+        pdf.text(`Score: ${attempt.score}/${QUESTIONS_PER_QUIZ}`, MARGIN, y);
+        pdf.setTextColor(resultColor);
+        pdf.text(resultText, PAGE_WIDTH - MARGIN, y, { align: 'right'});
+        pdf.setTextColor('#212529'); // reset color
+        y += 8;
+
+        attempt.questions.forEach((q, index) => {
+            const questionText = stripHtml(`Vraag ${index + 1}: ${q.questionText}`);
+            const questionLines = pdf.splitTextToSize(questionText, USABLE_WIDTH);
+            const questionHeight = questionLines.length * 4.5;
+            
+            const userAnswer = attempt.answers[q.id] ?? 'Geen antwoord';
+            const isCorrect = userAnswer === q.correctAnswer;
+            
+            const answerHeight = isCorrect ? 4.5 : 9;
+            const totalBlockHeight = questionHeight + answerHeight + 3;
+            
+            checkPageBreak(totalBlockHeight);
+
+            pdf.setFont('helvetica', 'bold');
+            pdf.setFontSize(10);
+            pdf.text(questionLines, MARGIN, y);
+            y += questionHeight;
+
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(10);
+            pdf.setTextColor(isCorrect ? '#43AA8B' : '#F94144');
+            pdf.text(`Jouw antwoord: ${userAnswer}`, MARGIN + 5, y);
+            y += 4.5;
+
+            if (!isCorrect) {
+                pdf.setTextColor('#43AA8B');
+                pdf.text(`Correct antwoord: ${q.correctAnswer}`, MARGIN + 5, y);
+                y += 4.5;
+            }
+            
+            pdf.setTextColor('#212529'); // Reset color
+            y += 3; // Spacing between questions
+        });
+        y += 5; // Spacing after an attempt
+    });
+
+    // --- ADD HEADERS AND FOOTERS TO ALL PAGES ---
+    const pageCount = pdf.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        pdf.setPage(i);
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(9);
+        pdf.setTextColor(150);
+        
+        // Header (only from page 2 onwards)
+        if (i > 1) {
+            const headerText = `Rapport Qrios ICT Vaardigheidstest - Cursist: ${studentInfo.firstName} ${studentInfo.lastName}`;
+            pdf.text(headerText, MARGIN, MARGIN / 2);
+        }
+        
+        // Footer (on all pages)
+        pdf.text(`Pagina ${i} van ${pageCount}`, PAGE_WIDTH - MARGIN, PAGE_HEIGHT - MARGIN / 2, { align: 'right' });
     }
-    
-    pdf.save(`rapport_${studentInfo.firstName}_${studentInfo.lastName}.pdf`);
+
+    pdf.save(`Rapport_${studentInfo.firstName}_${studentInfo.lastName}.pdf`);
   };
   
   const totalDurationSeconds = Math.round((testEndTime.getTime() - testStartTime.getTime()) / 1000);
@@ -862,33 +970,6 @@ const EndScreen: React.FC<{ achievedLevel: number; history: Attempt[]; studentIn
       >
         Download Rapport (PDF)
       </button>
-
-      <div ref={reportRef} className="absolute -left-[9999px] top-auto w-[800px] p-8 bg-white" style={{ display: 'none' }}>
-        <div className="flex items-center justify-center mb-6 pb-4 border-b">
-            <h1 className="text-2xl font-bold text-qrios-dark">Rapport IT-Vaardigheidstest</h1>
-        </div>
-        <h2 className="text-xl font-semibold mb-4">Resultaten voor {studentInfo.firstName} {studentInfo.lastName}</h2>
-        
-        <div className="text-left text-sm space-y-1 mb-6 p-3 bg-gray-100 rounded-lg">
-            <p><strong>Campus:</strong> {studentInfo.campus}</p>
-            <p><strong>Testdatum:</strong> {testStartTime.toLocaleDateString('nl-BE')}</p>
-            <p><strong>Totale duur:</strong> {minutes} minuten en {seconds} seconden</p>
-            <p className="font-bold text-base pt-2">Eindresultaat: Niveau {achievedLevel} behaald</p>
-        </div>
-
-        {history.map((attempt, index) => (
-          <div key={index} className="mb-6" style={{pageBreakBefore: 'always'}}>
-            <h3 className="text-xl font-bold text-qrios-dark border-b-2 border-qrios-primary pb-2 mb-4">
-              Details Niveau {attempt.level} - Poging {attempt.attemptNumber}
-            </h3>
-            <div className="grid grid-cols-2 gap-2 text-left text-base mb-4">
-              <p><strong>Score:</strong> {attempt.score}/{QUESTIONS_PER_QUIZ}</p>
-              <p><strong>Resultaat:</strong> <span className={attempt.passed ? 'font-bold text-green-600' : 'font-bold text-red-600'}>{attempt.passed ? 'Geslaagd' : 'Niet geslaagd'}</span></p>
-            </div>
-            <Report attempt={attempt} />
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
@@ -898,7 +979,7 @@ const Header: React.FC = () => {
         <header className="w-full bg-qrios-primary shadow-md p-2">
             <div className="max-w-5xl mx-auto flex items-center justify-center">
                 <div className="flex items-center gap-4">
-                    <h1 className="text-base sm:text-lg font-semibold text-white">IT-Vaardigheidstest</h1>
+                    <h1 className="text-base sm:text-lg font-semibold text-white">Qrios ICT Vaardigheidstest</h1>
                 </div>
             </div>
         </header>
@@ -1004,7 +1085,7 @@ const TeacherCodeModal: React.FC<{ isOpen: boolean; onConfirm: (code: string) =>
 
 // --- HOOFDAPPLICATIE (App.tsx) ---
 
-const Footer = () => {
+const Footer: React.FC = () => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
