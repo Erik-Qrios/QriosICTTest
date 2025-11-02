@@ -441,13 +441,13 @@ const QUESTION_BANK: Question[] = [
 const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => {
   return (
     <div className="text-center animate-fade-in-up flex flex-col items-center justify-center flex-grow">
-      <h1 className="text-4xl md:text-5xl font-bold text-qrios-dark mb-4">Welkom bij de IT-Vaardigheidstest</h1>
-      <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+      <h1 className="text-3xl md:text-4xl font-bold text-qrios-dark mb-4">Welkom bij de IT-Vaardigheidstest</h1>
+      <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto mb-8">
         Deze test is ontworpen om uw huidige computervaardigheden in kaart te brengen. Dit helpt ons om u de best mogelijke begeleiding te geven. De resultaten vormen een beginsituatie, zodat we later uw vooruitgang kunnen meten.
       </p>
       <button 
         onClick={onStart} 
-        className="bg-qrios-primary hover:bg-opacity-90 text-white font-bold py-4 px-10 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-qrios-secondary"
+        className="bg-qrios-primary hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full text-base shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-qrios-secondary"
       >
         Start de test
       </button>
@@ -472,10 +472,10 @@ const InfoScreen: React.FC<{ onSubmit: (info: StudentInfo) => void }> = ({ onSub
   const isFormValid = info.campus !== '' && info.firstName.trim() !== '' && info.lastName.trim() !== '';
 
   return (
-    <div className="w-full max-w-lg bg-white p-8 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
-      <h2 className="text-3xl font-bold text-center text-qrios-dark mb-4">Gegevens Cursist</h2>
-      <p className="text-center text-gray-600 mb-8">Vul alstublieft uw gegevens in om te beginnen.</p>
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
+      <h2 className="text-2xl font-bold text-center text-qrios-dark mb-4">Gegevens Cursist</h2>
+      <p className="text-center text-gray-600 mb-6">Vul alstublieft uw gegevens in om te beginnen.</p>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="campus" className="block text-sm font-medium text-gray-700 mb-2">Campus</label>
           <select 
@@ -483,7 +483,7 @@ const InfoScreen: React.FC<{ onSubmit: (info: StudentInfo) => void }> = ({ onSub
             name="campus" 
             value={info.campus} 
             onChange={handleChange} 
-            className="w-full px-4 py-3 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow"
+            className="w-full px-3 py-2 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow"
           >
             <option value="" disabled>Kies een campus...</option>
             {Campuses.map(c => <option key={c} value={c}>{c}</option>)}
@@ -497,7 +497,7 @@ const InfoScreen: React.FC<{ onSubmit: (info: StudentInfo) => void }> = ({ onSub
             name="firstName" 
             value={info.firstName} 
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow" 
+            className="w-full px-3 py-2 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow" 
           />
         </div>
         <div>
@@ -508,13 +508,13 @@ const InfoScreen: React.FC<{ onSubmit: (info: StudentInfo) => void }> = ({ onSub
             name="lastName" 
             value={info.lastName} 
             onChange={handleChange} 
-            className="w-full px-4 py-3 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow"
+            className="w-full px-3 py-2 bg-white text-qrios-dark border border-gray-300 rounded-lg focus:ring-2 focus:ring-qrios-secondary focus:border-qrios-secondary transition-shadow"
           />
         </div>
         <button 
           type="submit" 
           disabled={!isFormValid} 
-          className="w-full bg-qrios-primary text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md hover:bg-opacity-90 transition-all disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed transform hover:scale-105"
+          className="w-full bg-qrios-primary text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-all disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed transform hover:scale-105"
         >
           Start Bevraging
         </button>
@@ -550,7 +550,7 @@ const Timer: React.FC<{ duration: number; onTimeUp: () => void; }> = ({ duration
   };
 
   return (
-    <div className="w-full my-4">
+    <div className="w-full my-2">
         <div className="flex justify-between items-center mb-1 text-sm font-medium text-gray-700">
             <span>Tijd over</span>
             <span className="font-mono">{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
@@ -614,7 +614,7 @@ const QuizScreen: React.FC<{ questions: Question[]; level: number; onQuizEnd: (a
     return (
       <div className="space-y-3">
         {q.options?.map(option => (
-          <label key={option} className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:border-qrios-secondary transition-all has-[:checked]:bg-qrios-secondary has-[:checked]:bg-opacity-20 has-[:checked]:border-qrios-primary">
+          <label key={option} className="flex items-center p-3 border-2 rounded-lg cursor-pointer hover:border-qrios-secondary transition-all has-[:checked]:bg-qrios-secondary has-[:checked]:bg-opacity-20 has-[:checked]:border-qrios-primary">
             <input 
               type="radio" 
               name={q.id} 
@@ -623,7 +623,7 @@ const QuizScreen: React.FC<{ questions: Question[]; level: number; onQuizEnd: (a
               onChange={() => handleAnswerChange(q.id, option)}
               className="w-5 h-5 text-qrios-primary focus:ring-qrios-secondary"
             />
-            <span className="ml-4 text-lg text-qrios-dark">{option}</span>
+            <span className="ml-3 text-base text-qrios-dark">{option}</span>
           </label>
         ))}
       </div>
@@ -633,28 +633,28 @@ const QuizScreen: React.FC<{ questions: Question[]; level: number; onQuizEnd: (a
   if (!currentQuestion) return <div>Laden...</div>;
 
   return (
-    <div className="w-full max-w-3xl bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up flex flex-col">
+    <div className="w-full max-w-2xl bg-white p-4 sm:p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up flex flex-col">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl sm:text-3xl font-bold text-qrios-dark">Niveau {level}</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-qrios-dark">Niveau {level}</h2>
         <span className="text-gray-500 font-medium bg-gray-100 px-3 py-1 rounded-full">Vraag {currentQuestionIndex + 1} / {questions.length}</span>
       </div>
       
       <Timer duration={QUIZ_DURATION_SECONDS} onTimeUp={handleTimeUp} />
 
-      <div className="bg-qrios-light p-6 rounded-lg my-4 flex-grow min-h-[250px] flex flex-col justify-center border">
+      <div className="bg-qrios-light p-4 rounded-lg my-2 flex-grow min-h-[220px] flex flex-col justify-center border">
         <p 
-          className="text-xl sm:text-2xl text-qrios-dark mb-6 font-medium"
+          className="text-lg sm:text-xl text-qrios-dark mb-4 font-medium"
           dangerouslySetInnerHTML={{ __html: currentQuestion.questionText as string }}
         />
         {renderQuestion(currentQuestion)}
       </div>
 
-      <div className="flex justify-center items-center mt-6 gap-4">
-        <button onClick={handlePrev} disabled={currentQuestionIndex === 0} className="px-6 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Vorige</button>
+      <div className="flex justify-center items-center mt-4 gap-4">
+        <button onClick={handlePrev} disabled={currentQuestionIndex === 0} className="px-4 py-2 text-sm bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Vorige</button>
         {currentQuestionIndex < questions.length - 1 ? (
-          <button onClick={handleNext} className="px-8 py-3 bg-qrios-primary text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors shadow-md transform hover:scale-105">Volgende</button>
+          <button onClick={handleNext} className="px-6 py-2 bg-qrios-primary text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors shadow-md transform hover:scale-105">Volgende</button>
         ) : (
-          <button onClick={handleSubmit} className="px-8 py-3 bg-qrios-success text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors shadow-md transform hover:scale-105">Bevraging Indienen</button>
+          <button onClick={handleSubmit} className="px-6 py-2 bg-qrios-success text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors shadow-md transform hover:scale-105">Bevraging Indienen</button>
         )}
       </div>
     </div>
@@ -675,7 +675,7 @@ const IncorrectIcon = () => (
 
 const Report: React.FC<{ attempt: Attempt; }> = ({ attempt }) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {attempt.questions.map((q, index) => {
         const userAnswer = attempt.answers[q.id];
         const isCorrect = userAnswer === q.correctAnswer;
@@ -684,7 +684,7 @@ const Report: React.FC<{ attempt: Attempt; }> = ({ attempt }) => {
         const displayCorrectAnswer = String(q.correctAnswer);
 
         return (
-          <div key={q.id} className="border-b border-gray-200 pb-4 last:border-b-0">
+          <div key={q.id} className="border-b border-gray-200 pb-3 last:border-b-0">
             <p 
               className="font-semibold text-qrios-dark mb-3"
               dangerouslySetInnerHTML={{ __html: `Vraag ${index + 1}: ${q.questionText}` }}
@@ -717,16 +717,16 @@ const ResultsScreen: React.FC<{ attempt: Attempt; history: Attempt[]; onNext: ()
   };
 
   const CheckIcon = () => (
-    <div className="w-20 h-20 rounded-full bg-qrios-success bg-opacity-10 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-qrios-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div className="w-16 h-16 rounded-full bg-qrios-success bg-opacity-10 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-qrios-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
     </div>
   );
 
   const XCircleIcon = () => (
-     <div className="w-20 h-20 rounded-full bg-qrios-danger bg-opacity-10 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-qrios-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+     <div className="w-16 h-16 rounded-full bg-qrios-danger bg-opacity-10 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-qrios-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
     </div>
@@ -734,8 +734,8 @@ const ResultsScreen: React.FC<{ attempt: Attempt; history: Attempt[]; onNext: ()
   
   if (showReport) {
     return (
-      <div className="w-full max-w-4xl bg-white p-8 rounded-xl shadow-lg border border-gray-200 animate-fade-in">
-        <h2 className="text-3xl font-bold text-qrios-dark mb-6">Antwoorden Niveau {level}</h2>
+      <div className="w-full max-w-3xl bg-white p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in">
+        <h2 className="text-2xl font-bold text-qrios-dark mb-6">Antwoorden Niveau {level}</h2>
         {attemptsForThisLevel.map((att, index) => (
           <div key={index} className="mb-8">
             <h3 className="text-xl font-semibold text-gray-700 border-b-2 border-gray-200 pb-2 mb-4">Poging {att.attemptNumber}</h3>
@@ -744,7 +744,7 @@ const ResultsScreen: React.FC<{ attempt: Attempt; history: Attempt[]; onNext: ()
         ))}
         <button 
           onClick={() => setShowReport(false)}
-          className="w-full mt-4 bg-qrios-primary text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md hover:bg-opacity-90 transition-colors"
+          className="w-full mt-4 bg-qrios-primary text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-colors"
         >
           Terug naar Resultaten
         </button>
@@ -753,38 +753,38 @@ const ResultsScreen: React.FC<{ attempt: Attempt; history: Attempt[]; onNext: ()
   }
 
   return (
-    <div className="w-full max-w-lg text-center bg-white p-8 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
+    <div className="w-full max-w-md text-center bg-white p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
         <div className="flex justify-center mb-4">
             {passed ? <CheckIcon/> : <XCircleIcon />}
         </div>
-      <h2 className="text-3xl font-bold mb-2">{passed ? 'Gefeliciteerd!' : 'Helaas...'}</h2>
+      <h2 className="text-2xl font-bold mb-2">{passed ? 'Gefeliciteerd!' : 'Helaas...'}</h2>
       {timeUp && !passed ? (
-        <p className="text-gray-600 text-lg mb-4">
+        <p className="text-gray-600 text-base mb-4">
           Helaas, je hebt de {QUESTIONS_PER_QUIZ} vragen niet kunnen beantwoorden in 3 minuten. Je bent daarom niet geslaagd voor niveau {level}.
         </p>
       ) : (
-        <p className="text-gray-600 text-lg mb-4">
+        <p className="text-gray-600 text-base mb-4">
           {passed ? `Je bent geslaagd voor niveau ${level}!` : `Je bent niet geslaagd voor niveau ${level}.`}
         </p>
       )}
 
-      <div className="bg-qrios-light rounded-lg p-4 my-6 border">
+      <div className="bg-qrios-light rounded-lg p-4 my-4 border">
         <p className="text-lg font-medium text-gray-700">Jouw score:</p>
-        <p className={`text-5xl font-bold my-2 ${passed ? 'text-qrios-success' : 'text-qrios-danger'}`}>{score}<span className="text-3xl text-gray-500">/{QUESTIONS_PER_QUIZ}</span></p>
+        <p className={`text-4xl font-bold my-1 ${passed ? 'text-qrios-success' : 'text-qrios-danger'}`}>{score}<span className="text-2xl text-gray-500">/{QUESTIONS_PER_QUIZ}</span></p>
       </div>
-      {!passed && !timeUp && <p className="text-gray-600 text-md mb-6">Je hebt een score van {PASSING_SCORE} of hoger nodig om te slagen.</p>}
-      {!passed && attemptNumber < 2 && <p className="text-qrios-success font-semibold text-md mb-6">Je krijgt een tweede poging!</p>}
+      {!passed && !timeUp && <p className="text-gray-600 text-sm mb-4">Je hebt een score van {PASSING_SCORE} of hoger nodig om te slagen.</p>}
+      {!passed && attemptNumber < 2 && <p className="text-qrios-success font-semibold text-md mb-4">Je krijgt een tweede poging!</p>}
       
-      <div className="flex flex-col sm:flex-row gap-4 mt-8">
+      <div className="flex flex-col sm:flex-row gap-4 mt-6">
         <button 
           onClick={() => setShowReport(true)}
-          className="flex-1 bg-gray-200 text-qrios-dark font-bold py-3 px-6 rounded-lg text-lg hover:bg-gray-300 transition-colors"
+          className="flex-1 bg-gray-200 text-qrios-dark font-bold py-2 px-5 rounded-lg text-base hover:bg-gray-300 transition-colors"
         >
           Antwoorden
         </button>
         <button 
           onClick={onNext}
-          className="flex-1 bg-qrios-primary text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md hover:bg-opacity-90 transition-colors"
+          className="flex-1 bg-qrios-primary text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-colors"
         >
           {getNextButtonText()}
         </button>
@@ -840,17 +840,17 @@ const EndScreen: React.FC<{ achievedLevel: number; history: Attempt[]; studentIn
   const seconds = totalDurationSeconds % 60;
   
   return (
-    <div className="w-full max-w-2xl text-center bg-white p-8 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
-      <h2 className="text-3xl font-bold text-qrios-dark mb-2">Test Afgerond!</h2>
-      <p className="text-lg text-gray-600 mb-6">Bedankt voor uw deelname. Hieronder vindt u een overzicht van uw resultaten.</p>
+    <div className="w-full max-w-xl text-center bg-white p-6 rounded-xl shadow-lg border border-gray-200 animate-fade-in-up">
+      <h2 className="text-2xl font-bold text-qrios-dark mb-2">Test Afgerond!</h2>
+      <p className="text-base text-gray-600 mb-6">Bedankt voor uw deelname. Hieronder vindt u een overzicht van uw resultaten.</p>
 
-      <div className="bg-qrios-light rounded-lg p-6 my-8 border-2 border-qrios-primary">
+      <div className="bg-qrios-light rounded-lg p-4 my-6 border-2 border-qrios-primary">
         <p className="text-lg font-medium text-gray-700">Behaald niveau:</p>
-        <p className="text-6xl font-bold my-2 text-qrios-primary">{achievedLevel}</p>
+        <p className="text-5xl font-bold my-2 text-qrios-primary">{achievedLevel}</p>
         <p className="text-sm text-gray-500">van de 3 niveaus</p>
       </div>
 
-      <div className="text-left text-gray-700 space-y-2 mb-8 p-4 bg-gray-50 rounded-lg border">
+      <div className="text-left text-gray-700 space-y-2 mb-6 p-4 bg-gray-50 rounded-lg border">
         <p><strong>Naam:</strong> {studentInfo.firstName} {studentInfo.lastName}</p>
         <p><strong>Campus:</strong> {studentInfo.campus}</p>
         <p><strong>Totale duur:</strong> {minutes} minuten en {seconds} seconden</p>
@@ -858,7 +858,7 @@ const EndScreen: React.FC<{ achievedLevel: number; history: Attempt[]; studentIn
       
       <button 
         onClick={handleDownload}
-        className="w-full bg-qrios-primary text-white font-bold py-4 px-8 rounded-lg text-xl shadow-md hover:bg-opacity-90 transition-all transform hover:scale-105"
+        className="w-full bg-qrios-primary text-white font-bold py-3 px-6 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-all transform hover:scale-105"
       >
         Download Rapport (PDF)
       </button>
@@ -895,10 +895,10 @@ const EndScreen: React.FC<{ achievedLevel: number; history: Attempt[]; studentIn
 
 const Header: React.FC = () => {
     return (
-        <header className="w-full bg-qrios-primary shadow-md p-4">
+        <header className="w-full bg-qrios-primary shadow-md p-3">
             <div className="max-w-5xl mx-auto flex items-center justify-center">
                 <div className="flex items-center gap-4">
-                    <h1 className="text-xl sm:text-2xl font-semibold text-white">IT-Vaardigheidstest</h1>
+                    <h1 className="text-lg sm:text-xl font-semibold text-white">IT-Vaardigheidstest</h1>
                 </div>
             </div>
         </header>
@@ -912,18 +912,18 @@ const ConfirmationModal: React.FC<{ isOpen: boolean; onConfirm: () => void; onCa
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" aria-modal="true" role="dialog">
-      <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg text-center animate-fade-in-up">
-        <p className="text-xl text-qrios-dark mb-8">{message}</p>
+      <div className="bg-white w-full max-w-sm p-6 rounded-xl shadow-lg text-center animate-fade-in-up">
+        <p className="text-lg text-qrios-dark mb-6">{message}</p>
         <div className="flex justify-center gap-4">
           <button
             onClick={onConfirm}
-            className="flex-1 bg-qrios-danger text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md hover:bg-opacity-90 transition-colors"
+            className="flex-1 bg-qrios-danger text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-colors"
           >
             Ja
           </button>
           <button
             onClick={onCancel}
-            className="flex-1 bg-gray-200 text-qrios-dark font-bold py-3 px-6 rounded-lg text-lg hover:bg-gray-300 transition-colors"
+            className="flex-1 bg-gray-200 text-qrios-dark font-bold py-2 px-5 rounded-lg text-base hover:bg-gray-300 transition-colors"
           >
             Annuleren
           </button>
@@ -963,7 +963,7 @@ const TeacherCodeModal: React.FC<{ isOpen: boolean; onConfirm: (code: string) =>
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" aria-modal="true" role="dialog">
-      <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg text-center animate-fade-in-up">
+      <div className="bg-white w-full max-w-sm p-6 rounded-xl shadow-lg text-center animate-fade-in-up">
         <h2 className="text-2xl font-bold text-qrios-dark mb-4">Toegang voor Leerkracht</h2>
         <p className="text-gray-600 mb-6">Deze actie is enkel voor de leerkracht. Voer de code in om door te gaan.</p>
         
@@ -975,7 +975,7 @@ const TeacherCodeModal: React.FC<{ isOpen: boolean; onConfirm: (code: string) =>
               setCode(e.target.value);
               if (error) setError('');
             }}
-            className={`w-full px-4 py-3 bg-white text-qrios-dark border ${error ? 'border-qrios-danger' : 'border-gray-300'} rounded-lg focus:ring-2 ${error ? 'focus:ring-qrios-danger' : 'focus:ring-qrios-secondary'} focus:border-transparent transition-shadow`}
+            className={`w-full px-3 py-2 bg-white text-qrios-dark border ${error ? 'border-qrios-danger' : 'border-gray-300'} rounded-lg focus:ring-2 ${error ? 'focus:ring-qrios-danger' : 'focus:ring-qrios-secondary'} focus:border-transparent transition-shadow`}
             placeholder="Voer code in..."
             autoFocus
           />
@@ -984,14 +984,14 @@ const TeacherCodeModal: React.FC<{ isOpen: boolean; onConfirm: (code: string) =>
           <div className="flex justify-center gap-4 pt-4">
             <button
               type="submit"
-              className="flex-1 bg-qrios-primary text-white font-bold py-3 px-6 rounded-lg text-lg shadow-md hover:bg-opacity-90 transition-colors"
+              className="flex-1 bg-qrios-primary text-white font-bold py-2 px-5 rounded-lg text-base shadow-md hover:bg-opacity-90 transition-colors"
             >
               OK
             </button>
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 bg-gray-200 text-qrios-dark font-bold py-3 px-6 rounded-lg text-lg hover:bg-gray-300 transition-colors"
+              className="flex-1 bg-gray-200 text-qrios-dark font-bold py-2 px-5 rounded-lg text-base hover:bg-gray-300 transition-colors"
             >
               Annuleren
             </button>
@@ -1013,7 +1013,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="w-full text-center text-white text-lg p-4 mt-auto bg-qrios-primary">
+    <footer className="w-full text-center text-white text-base p-3 mt-auto bg-qrios-primary">
       {time.toLocaleDateString('nl-BE')} - {time.toLocaleTimeString('nl-BE')}
     </footer>
   );
@@ -1197,7 +1197,7 @@ function App() {
     <div className="bg-qrios-light min-h-screen flex flex-col items-center text-qrios-dark font-sans">
        <Header />
        {gameState !== 'welcome' && (
-        <div className="w-full flex justify-center items-center gap-4 p-4 bg-qrios-light border-b border-gray-200">
+        <div className="w-full flex justify-center items-center gap-4 p-2 bg-qrios-light border-b border-gray-200">
           <button
             onClick={handleResetRequest}
             className="bg-white border border-gray-300 text-qrios-dark hover:bg-gray-100 font-semibold py-2 px-4 rounded-lg text-sm transition-colors shadow-sm"
@@ -1214,7 +1214,7 @@ function App() {
           )}
         </div>
        )}
-       <main className="w-full max-w-5xl mx-auto flex-grow flex flex-col items-center p-4 sm:p-6 md:p-8">
+       <main className="w-full max-w-4xl mx-auto flex-grow flex flex-col items-center p-2 sm:p-4">
         {renderContent()}
        </main>
       <Footer />
